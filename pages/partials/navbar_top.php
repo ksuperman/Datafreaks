@@ -14,14 +14,16 @@
         <!-- /.dropdown -->
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                <i class="fa fa-shopping-cart fa-fw"></i> <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-alerts">
                 <li>
                     <a href="#">
                         <div>
-                            <i class="fa fa-comment fa-fw"></i> New Comment
-                            <span class="pull-right text-muted small">4 minutes ago</span>
+                            <img style="height: 50px; width: 50px;"
+                                 src="http://www.mamiyaleaf.com/assets/slider/product/product_slider_heinz_baumann.jpg">
+                            Chanel Perfume
+                            <span class="pull-right text-muted small">Qty : 1</span>
                         </div>
                     </a>
                 </li>
@@ -29,8 +31,10 @@
                 <li>
                     <a href="#">
                         <div>
-                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                            <span class="pull-right text-muted small">12 minutes ago</span>
+                            <img style="height: 50px; width: 50px;"
+                                 src="https://www.apple.com/au/pr/products/images/iPhone6_34FR_SpGry_iPhone6plus_34FL_SpGry_Homescreen_HERO.jpg">
+                            IPhone 6
+                            <span class="pull-right text-muted small">Qty : 2</span>
                         </div>
                     </a>
                 </li>
@@ -38,8 +42,10 @@
                 <li>
                     <a href="#">
                         <div>
-                            <i class="fa fa-envelope fa-fw"></i> Message Sent
-                            <span class="pull-right text-muted small">4 minutes ago</span>
+                            <img style="height: 50px; width: 50px;"
+                                 src="http://g-ec2.images-amazon.com/images/G/01/electronics/camera/Samsung/Aplus2013/samsung-st150-black-img1-l.jpg">
+                            Samsung X600
+                            <span class="pull-right text-muted small">Qty : 3</span>
                         </div>
                     </a>
                 </li>
@@ -47,25 +53,18 @@
                 <li>
                     <a href="#">
                         <div>
-                            <i class="fa fa-tasks fa-fw"></i> New Task
-                            <span class="pull-right text-muted small">4 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                            <span class="pull-right text-muted small">4 minutes ago</span>
+                            <img style="height: 50px; width: 50px;"
+                                 src="http://www.computershopper.com/var/ezwebin_site/storage/images/printers/product-profile/samsung-ml-3712dw/1034726-1-eng-US/samsung-ml-3712dw_product_review_thumb.jpg">
+                            HP Printer
+                            <span class="pull-right text-muted small">Qty : 4</span>
                         </div>
                     </a>
                 </li>
                 <li class="divider"></li>
                 <li>
                     <a class="text-center" href="#">
-                        <strong>See All Alerts</strong>
-                        <i class="fa fa-angle-right"></i>
+                        <strong>Go To Checkout</strong>
+                        <i class="fa fa-truck"></i>
                     </a>
                 </li>
             </ul>
@@ -82,7 +81,8 @@
                 <li><a href="#"><i class="fa fa-gear fa-fw"></i> User Settings</a>
                 </li>
                 <li class="divider"></li>
-                <li><a href="../../../Downloads/startbootstrap-sb-admin-2-gh-pages/pages/login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                <li><a href="../../../Downloads/startbootstrap-sb-admin-2-gh-pages/pages/login.html"><i
+                            class="fa fa-sign-out fa-fw"></i> Logout</a>
                 </li>
             </ul>
             <!-- /.dropdown-user -->
@@ -112,88 +112,7 @@
                     <a href="blank.php"><i class="fa fa-file-o fa-fw"></i>Blank Template</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="pages/flot.html">Flot Charts</a>
-                        </li>
-                        <li>
-                            <a href="pages/morris.html">Morris.js Charts</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li>
-                    <a href="../../../Downloads/startbootstrap-sb-admin-2-gh-pages/pages/tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
-                </li>
-                <li>
-                    <a href="../../../Downloads/startbootstrap-sb-admin-2-gh-pages/pages/forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="../../../Downloads/startbootstrap-sb-admin-2-gh-pages/pages/panels-wells.html">Panels and Wells</a>
-                        </li>
-                        <li>
-                            <a href="../../../Downloads/startbootstrap-sb-admin-2-gh-pages/pages/buttons.html">Buttons</a>
-                        </li>
-                        <li>
-                            <a href="../../../Downloads/startbootstrap-sb-admin-2-gh-pages/pages/notifications.html">Notifications</a>
-                        </li>
-                        <li>
-                            <a href="../../../Downloads/startbootstrap-sb-admin-2-gh-pages/pages/typography.html">Typography</a>
-                        </li>
-                        <li>
-                            <a href="../../../Downloads/startbootstrap-sb-admin-2-gh-pages/pages/icons.html"> Icons</a>
-                        </li>
-                        <li>
-                            <a href="../../../Downloads/startbootstrap-sb-admin-2-gh-pages/pages/grid.html">Grid</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="#">Second Level Item</a>
-                        </li>
-                        <li>
-                            <a href="#">Second Level Item</a>
-                        </li>
-                        <li>
-                            <a href="#">Third Level <span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
-                                <li>
-                                    <a href="#">Third Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level Item</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-third-level -->
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="../../Downloads/startbootstrap-sb-admin-2-gh-pages/pages/blank.html">Blank Page</a>
-                        </li>
-                        <li>
-                            <a href="../../../Downloads/startbootstrap-sb-admin-2-gh-pages/pages/login.html">Login Page</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
+                    <a href="user_details.php"><i class="fa fa-file-o fa-fw"></i>User Details</a>
                 </li>
             </ul>
         </div>
