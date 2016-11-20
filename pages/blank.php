@@ -2,6 +2,24 @@
 <html lang="en">
 
 <head>
+
+    <?php
+        include("../utilities/dbConnect.php");
+    ?>
+
+    <?php
+        include("../utilities/errorhandler.php");
+    ?>
+
+    <?php
+        include("../utilities/session.php");
+    ?>
+
+    <?php
+        sessionWrapper($db);
+        logErrorToConsole(var_export($_SESSION, true));
+    ?>
+
     <?php
         include("./partials/header_meta.php");
     ?>
