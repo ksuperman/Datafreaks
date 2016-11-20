@@ -3,6 +3,24 @@
 
 <head>
     <?php
+        include("../utilities/dbConnect.php");
+    ?>
+
+    <?php
+        include("../utilities/errorhandler.php");
+    ?>
+
+    <?php
+        include("../utilities/session.php");
+    ?>
+
+    <?php
+        sessionWrapper($db);
+        $_SESSION["test"] = "test"; // This Value is Persisted in the Session on MYSQL Database
+        logErrorToConsole(var_export($_SESSION, true)); // This is printed in the file on path /XAMPP/logs/php_error_log
+    ?>
+
+    <?php
         include("./partials/header_meta.php");
     ?>
 
