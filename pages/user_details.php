@@ -3,11 +3,16 @@
 
 <head>
     <?php
+    include "../utilities/global_variables.php"
+    ?>
+
+    <?php
     include("../utilities/dbConnect.php");
     ?>
 
     <?php
     include("../utilities/errorhandler.php");
+    set_error_handler('customErrorHandler');
     ?>
 
     <?php
@@ -15,16 +20,20 @@
     ?>
 
     <?php
-    sessionWrapper($db);
-    $_SESSION["test"] = "test"; // This Value is Persisted in the Session on MYSQL Database
-    logErrorToConsole(var_export($_SESSION, true)); // This is printed in the file on path /XAMPP/logs/php_error_log
+    include("../utilities/applicationContext.php");
+    ?>
+
+    <?php
+    include('content_helpers/user_details_helper.php');
+    //logErrorToConsole("Get User Details".var_export($user->getUserId(), true));
+    //logErrorToConsole($uid);
     ?>
 
     <?php
     include("./partials/header_meta.php");
     ?>
 
-    <title>Online Shopping Cart</title>
+    <title>User Details Page</title>
 
     <?php
     include("./partials/header_links.php");
@@ -70,12 +79,12 @@
                                 <i class="fa fa-tasks fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">12</div>
+                                <div class="huge"><?php getCountOfPlacedOrder()?></div>
                                 <div>Orders Placed</div>
                             </div>
                         </div>
                     </div>
-                    <a href="#">
+                    <a href="#OrderDetailsLink">
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -92,12 +101,12 @@
                                 <i class="fa fa-support fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">124</div>
+                                <div class="huge"><?php getCountOfPendingOrder()?></div>
                                 <div>Orders Pending Delivery</div>
                             </div>
                         </div>
                     </div>
-                    <a href="#">
+                    <a href="#OrderDetailsLink">
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -114,7 +123,7 @@
                                 <i class="fa fa-shopping-cart fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">13</div>
+                                <div class="huge"><?php getItemCountInShoppingCart() ?></div>
                                 <div>Items in Your Shopping Cart</div>
                             </div>
                         </div>
@@ -161,37 +170,37 @@
                                 <form role="form">
                                     <fieldset disabled>
                                         <div class="form-group input-group">
-                                            <input type="text" class="form-control" value="Rakshith"
+                                            <input type="text" class="form-control" value="<?php echo $user->getFirstName()?>"
                                                    placeholder="First Name" name="firstname">
                                             <span class="input-group-addon">First Name</span>
                                         </div>
                                         <div class="form-group input-group">
-                                            <input type="text" class="form-control" value="Koravadi"
+                                            <input type="text" class="form-control" value="<?php echo $user->getMiddleName()?>"
                                                    placeholder="Middle Name" name="middlename">
                                             <span class="input-group-addon">Middle Name</span>
                                         </div>
                                         <div class="form-group input-group">
-                                            <input type="text" class="form-control" value="Hatwar"
+                                            <input type="text" class="form-control" value="<?php echo $user->getLastName()?>"
                                                    placeholder="Last Name" name="lastname">
                                             <span class="input-group-addon">Last Name</span>
                                         </div>
                                         <div class="form-group input-group">
-                                            <input type="text" class="form-control" value="rakshithk"
+                                            <input type="text" class="form-control" value="<?php echo $user->getUserName()?>"
                                                    placeholder="Username" name="username">
                                             <span class="input-group-addon">Username</span>
                                         </div>
                                         <div class="form-group input-group">
-                                            <input type="password" class="form-control" value="password"
+                                            <input type="password" class="form-control" value="<?php echo $user->getPassword()?>"
                                                    placeholder="Password" name="password">
                                             <span class="input-group-addon">Password</span>
                                         </div>
                                         <div class="form-group input-group">
-                                            <input type="text" class="form-control" value="08/13/1988"
+                                            <input type="text" class="form-control" value="<?php echo $user->getDOB()?>"
                                                    placeholder="Date Of Birth" name="dob">
                                             <span class="input-group-addon">Date Of Birth</span>
                                         </div>
                                         <div class="form-group input-group">
-                                            <input type="text" class="form-control" value="rakshithk@live.com"
+                                            <input type="text" class="form-control" value="<?php echo $user->getEmail()?>"
                                                    placeholder="Email" name="email">
                                             <span class="input-group-addon">Email</span>
                                         </div>
@@ -214,39 +223,38 @@
                                                 <div class="modal-body">
                                                     <fieldset>
                                                         <div class="form-group input-group">
-                                                            <input type="text" class="form-control" value="Rakshith"
+                                                            <input type="text" class="form-control" value="<?php echo $user->getFirstName()?>"
                                                                    placeholder="First Name" name="firstname">
                                                             <span class="input-group-addon">First Name</span>
                                                         </div>
                                                         <div class="form-group input-group">
-                                                            <input type="text" class="form-control" value="Koravadi"
+                                                            <input type="text" class="form-control" value="<?php echo $user->getMiddleName()?>"
                                                                    placeholder="Middle Name" name="middlename">
                                                             <span class="input-group-addon">Middle Name</span>
                                                         </div>
                                                         <div class="form-group input-group">
-                                                            <input type="text" class="form-control" value="Hatwar"
+                                                            <input type="text" class="form-control" value="<?php echo $user->getLastName()?>"
                                                                    placeholder="Last Name" name="lastname">
                                                             <span class="input-group-addon">Last Name</span>
                                                         </div>
                                                         <div class="form-group input-group">
-                                                            <input type="text" class="form-control" value="rakshithk"
-                                                                   placeholder="Username" name="username">
+                                                            <input type="text" class="form-control" value="<?php echo $user->getUserName()?>"
+                                                                   placeholder="Username" name="username" disabled>
                                                             <span class="input-group-addon">Username</span>
                                                         </div>
                                                         <div class="form-group input-group">
-                                                            <input type="password" class="form-control" value="password"
+                                                            <input type="password" class="form-control" value="<?php echo $user->getPassword()?>"
                                                                    placeholder="Password" name="password">
                                                             <span class="input-group-addon">Password</span>
                                                         </div>
                                                         <div class="form-group input-group">
-                                                            <input type="text" class="form-control" value="08/13/1988"
-                                                                   placeholder="Date Of Birth" name="dob">
+                                                            <input type="text" class="form-control" value="<?php echo $user->getDOB()?>"
+                                                                   placeholder="Date Of Birth" name="dob" disabled>
                                                             <span class="input-group-addon">Date Of Birth</span>
                                                         </div>
                                                         <div class="form-group input-group">
-                                                            <input type="text" class="form-control"
-                                                                   value="rakshithk@live.com"
-                                                                   placeholder="Email" name="email">
+                                                            <input type="text" class="form-control" value="<?php echo $user->getEmail()?>"
+                                                                   placeholder="Email" name="email" disabled>
                                                             <span class="input-group-addon">Email</span>
                                                         </div>
                                                     </fieldset>
@@ -264,292 +272,19 @@
                                     </div>
                                     <!-- /.modal-dialog -->
                                 </div>
-                                <!-- /.modal -->
                             </div>
                             <!-- Address  -->
                             <div class="tab-pane fade" id="address">
                                 <h4>My Address</h4>
-                                <div class="panel-group" id="accordion">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Address
-                                                    #1</a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseOne" class="panel-collapse collapse in">
-                                            <div class="panel-body">
-                                                <div class="row">
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                        <div class="form-group">
-                                                            <label>Unit Number</label>
-                                                            <p class="form-control-static">Apt 7</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                        <div class="form-group">
-                                                            <label>Street Name</label>
-                                                            <p class="form-control-static">Santa Clara Street</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                        <div class="form-group">
-                                                            <label>City</label>
-                                                            <p class="form-control-static">San Jose</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                        <div class="form-group">
-                                                            <label>County</label>
-                                                            <p class="form-control-static">San Jose</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                        <div class="form-group">
-                                                            <label>State</label>
-                                                            <p class="form-control-static">California</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                        <div class="form-group">
-                                                            <label>Zipcode</label>
-                                                            <p class="form-control-static">95112</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Address
-                                                    #2</a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseTwo" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                <div class="panel-body">
-                                                    <div class="row">
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>Unit Number</label>
-                                                                <p class="form-control-static">Apt 7</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>Street Name</label>
-                                                                <p class="form-control-static">Santa Clara Street</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>City</label>
-                                                                <p class="form-control-static">San Jose</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>County</label>
-                                                                <p class="form-control-static">San Jose</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>State</label>
-                                                                <p class="form-control-static">California</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>Zipcode</label>
-                                                                <p class="form-control-static">95112</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#accordion"
-                                                   href="#collapseThree">Address #3</a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseThree" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                <div class="panel-body">
-                                                    <div class="row">
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>Unit Number</label>
-                                                                <p class="form-control-static">Apt 7</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>Street Name</label>
-                                                                <p class="form-control-static">Santa Clara Street</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>City</label>
-                                                                <p class="form-control-static">San Jose</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>County</label>
-                                                                <p class="form-control-static">San Jose</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>State</label>
-                                                                <p class="form-control-static">California</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>Zipcode</label>
-                                                                <p class="form-control-static">95112</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="panel-group" id="address_accordion">
+                                    <?php createUserAddressBlock() ?>
                                 </div>
                             </div>
                             <!-- Payment  -->
                             <div class="tab-pane fade" id="payment">
                                 <h4>My Payment Methods</h4>
                                 <div class="panel-group" id="paymentAcc">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#paymentAcc" href="#payment1">Payment
-                                                    Method #1</a>
-                                            </h4>
-                                        </div>
-                                        <div id="payment1" class="panel-collapse collapse in">
-                                            <div class="panel-body">
-                                                <div class="panel-body">
-                                                    <div class="row">
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>Name On Card</label>
-                                                                <p class="form-control-static">Rakshith K Hatwar</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>Card Number</label>
-                                                                <p class="form-control-static">7298472394293480</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>PIN/CVV</label>
-                                                                <p class="form-control-static">3432</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>Expire Date</label>
-                                                                <p class="form-control-static">12/12/2020</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#paymentAcc" href="#payment2">Payment
-                                                    Method #1</a>
-                                            </h4>
-                                        </div>
-                                        <div id="payment2" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                <div class="panel-body">
-                                                    <div class="row">
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>Name On Card</label>
-                                                                <p class="form-control-static">Rakshith K Hatwar</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>Card Number</label>
-                                                                <p class="form-control-static">7298472394293480</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>PIN/CVV</label>
-                                                                <p class="form-control-static">3432</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>Expire Date</label>
-                                                                <p class="form-control-static">12/12/2020</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#paymentAcc" href="#payment3">Payment
-                                                    Method #1</a>
-                                            </h4>
-                                        </div>
-                                        <div id="payment3" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                <div class="panel-body">
-                                                    <div class="row">
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>Name On Card</label>
-                                                                <p class="form-control-static">Rakshith K Hatwar</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>Card Number</label>
-                                                                <p class="form-control-static">7298472394293480</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>PIN/CVV</label>
-                                                                <p class="form-control-static">3432</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                                            <div class="form-group">
-                                                                <label>Expire Date</label>
-                                                                <p class="form-control-static">12/12/2020</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <?php createUserPaymentBlock() ?>
                                 </div>
                             </div>
                             <!-- Phone  -->
@@ -559,16 +294,9 @@
                                     <div class="form-group input-group">
                                         <span class="input-group-addon">@</span>
                                         <input type="text" class="form-control" placeholder="Email"
-                                               value="rakshithk@live.com">
+                                               value="<?php echo $user->getEmail()?>">
                                     </div>
-                                    <div class="form-group input-group">
-                                        <span class="input-group-addon"><i class="fa fa-phone fa-1x"></i></span>
-                                        <input type="text" class="form-control" placeholder="Phone" value="6692478890">
-                                    </div>
-                                    <div class="form-group input-group">
-                                        <span class="input-group-addon"><i class="fa fa-phone fa-1x"></i></span>
-                                        <input type="text" class="form-control" placeholder="Phone" value="6692478891">
-                                    </div>
+                                    <?php createUserPhoneNumberBlock() ?>
                                 </fieldset>
                             </div>
                         </div>
@@ -577,7 +305,7 @@
             </div>
         </div>
         <!-- /.User Order Details -->
-        <div class="row">
+        <div class="row" id="OrderDetailsLink">
             <div class="col-lg-12">
                 <!-- Order Details-->
                 <div class="panel panel-default">
@@ -586,270 +314,7 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body scrollable-panel">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panelHeading"><i class="fa fa-truck fa-fw "></i>Order #23161873</h4>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Status</label>
-                                            <p class="form-control-static">Processing</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Static Control</label>
-                                            <p class="form-control-static">email@example.com</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Date</label>
-                                            <p class="form-control-static">11/13/2016</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Amount</label>
-                                            <p class="form-control-static">$ 300</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Payment Mode</label>
-                                            <p class="form-control-static">Credit Card</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <button class="btn btn-info">
-                                    View Order Details
-                                </button>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panelHeading"><i class="fa fa-truck fa-fw "></i>Order #23161873</h4>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Status</label>
-                                            <p class="form-control-static">Processing</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Static Control</label>
-                                            <p class="form-control-static">email@example.com</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Date</label>
-                                            <p class="form-control-static">11/13/2016</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Amount</label>
-                                            <p class="form-control-static">$ 300</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Payment Mode</label>
-                                            <p class="form-control-static">Credit Card</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <button class="btn btn-info">
-                                    View Order Details
-                                </button>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panelHeading"><i class="fa fa-truck fa-fw "></i>Order #23161873</h4>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Status</label>
-                                            <p class="form-control-static">Processing</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Static Control</label>
-                                            <p class="form-control-static">email@example.com</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Date</label>
-                                            <p class="form-control-static">11/13/2016</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Amount</label>
-                                            <p class="form-control-static">$ 300</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Payment Mode</label>
-                                            <p class="form-control-static">Credit Card</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <button class="btn btn-info">
-                                    View Order Details
-                                </button>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panelHeading"><i class="fa fa-truck fa-fw "></i>Order #23161873</h4>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Status</label>
-                                            <p class="form-control-static">Processing</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Static Control</label>
-                                            <p class="form-control-static">email@example.com</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Date</label>
-                                            <p class="form-control-static">11/13/2016</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Amount</label>
-                                            <p class="form-control-static">$ 300</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Payment Mode</label>
-                                            <p class="form-control-static">Credit Card</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <button class="btn btn-info">
-                                    View Order Details
-                                </button>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panelHeading"><i class="fa fa-truck fa-fw "></i>Order #23161873</h4>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Status</label>
-                                            <p class="form-control-static">Processing</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Static Control</label>
-                                            <p class="form-control-static">email@example.com</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Date</label>
-                                            <p class="form-control-static">11/13/2016</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Amount</label>
-                                            <p class="form-control-static">$ 300</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Payment Mode</label>
-                                            <p class="form-control-static">Credit Card</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <button class="btn btn-info">
-                                    View Order Details
-                                </button>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panelHeading"><i class="fa fa-truck fa-fw "></i>Order #23161873</h4>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Status</label>
-                                            <p class="form-control-static">Processing</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Static Control</label>
-                                            <p class="form-control-static">email@example.com</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Date</label>
-                                            <p class="form-control-static">11/13/2016</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Order Amount</label>
-                                            <p class="form-control-static">$ 300</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                            <label>Payment Mode</label>
-                                            <p class="form-control-static">Credit Card</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <button class="btn btn-info">
-                                    View Order Details
-                                </button>
-                            </div>
-                        </div>
+                        <?php createUserOrdersBlock() ?>
                     </div>
                     <!-- /.panel-body -->
                 </div>
