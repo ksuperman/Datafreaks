@@ -4,6 +4,53 @@ include_once("../objects/user_account.php");
 include_once("../objects/account_address.php");
 include_once("../objects/user_payment.php");
 include_once("../objects/user_order.php");
+include_once("../objects/user_shopping_cart.php");
+include_once("../objects/shopping_cart_items.php");
+
+function setShoppingCartItemsContext()
+{
+    global $user_shopping_cart, $db_pdo, $shopping_cart_items;
+
+    if (!empty($user_shopping_cart)) {
+
+        if (isset($db_pdo)) {
+            $db_pdo = getPDOObject();
+        }
+
+        $sql_stmt = "SELECT sc.ID AS SHOPPINGCARTITEMID, sc.PRODUCTID as PRODUCTID, sc.CARTID as CARTID, sc.QUANTITY as QUANTITY, p.CATALOGID, p.NAME, p.PRICE, p.DESCRIPTION, p.IMG FROM product_shoppingcart sc, product p WHERE p.ID = sc.PRODUCTID AND  CARTID = :SHOPPINGCARTID";
+
+        $sql = $db_pdo->prepare($sql_stmt);
+
+        $sql->execute(array(':SHOPPINGCARTID' => $user_shopping_cart->getSHOPPINGCARTID()));
+
+        $shopping_cart_items = $sql->fetchAll(PDO::FETCH_CLASS, "shopping_cart_items");
+    }
+
+}
+
+function setShoppingCartContext()
+{
+    global $aid, $db_pdo, $user_shopping_cart;
+
+    if (!empty($aid)) {
+
+        if (isset($db_pdo)) {
+            $db_pdo = getPDOObject();
+        }
+
+        $sql_stmt = "SELECT ID as 'SHOPPINGCARTID', ACCOUNTID, STATUS FROM shoppingcart WHERE STATUS = 'ACTIVE' AND ACCOUNTID = :aid";
+
+        $sql = $db_pdo->prepare($sql_stmt);
+
+        $sql->execute(array(':aid' => $aid));
+
+        $sql->setFetchMode(PDO::FETCH_CLASS, "user_shopping_cart");
+
+        $user_shopping_cart = $sql->fetch();
+
+        setShoppingCartItemsContext();
+    }
+}
 
 function setUserOrderHistoryContext()
 {
@@ -92,6 +139,7 @@ function setUserAccountContext()
             setUserAddressContext();
             setUserPaymentContext();
             setUserOrderHistoryContext();
+            setShoppingCartContext();
             logErrorToConsole("Finally Setting UserAccountContext DONE !! ");
         }
     } catch (Exception $error) {
