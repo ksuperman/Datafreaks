@@ -59,5 +59,9 @@ class shopping_cart_items
         return $this->IMG;
     }
 
+    public function getLineItemPrice()
+    {
+        return ($this->PRICE)*($this->QUANTITY);
+    }
 
 }

@@ -16,7 +16,7 @@ function getUserShoppingCartItems()
                     <img style=\"height: 50px; width: 50px;\"
                          src=\"{$value->getIMG()}\">
                     {$value->getNAME()}
-                    <span class=\"pull-right text-muted small\">Qty : {$value->getQUANTITY()}</span>
+                    <span class=\"pull-right text-muted small\">Qty : {$value->getQUANTITY()}<br>Total : \${$value->getLineItemPrice()}</span>
                 </div>
             </a>
         </li>

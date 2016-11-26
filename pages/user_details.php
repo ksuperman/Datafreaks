@@ -3,40 +3,40 @@
 
 <head>
     <?php
-    include "../utilities/global_variables.php"
+    include("../utilities/global_variables.php");
     ?>
 
     <?php
-    include("../utilities/dbConnect.php");
+    include("$document_root/utilities/dbConnect.php");
     ?>
 
     <?php
-    include("../utilities/errorhandler.php");
+    include("$document_root/utilities/errorhandler.php");
     set_error_handler('customErrorHandler');
     ?>
 
     <?php
-    include("../utilities/session.php");
+    include("$document_root/utilities/session.php");
     ?>
 
     <?php
-    include("../utilities/applicationContext.php");
+    include("$document_root/utilities/applicationContext.php");
     ?>
 
     <?php
     include('content_helpers/user_details_helper.php');
     //logErrorToConsole("Get User Details".var_export($user->getUserId(), true));
-    //logErrorToConsole($uid);
+    //logErrorToConsole($_SERVER['DOCUMENT_ROOT'] . __DIR__);
     ?>
 
     <?php
-    include("./partials/header_meta.php");
+    include("$document_root/pages/partials/header_meta.php");
     ?>
 
     <title>User Details Page</title>
 
     <?php
-    include("./partials/header_links.php");
+    include("$document_root/pages/partials/header_links.php");
     ?>
 
 </head>
@@ -52,6 +52,14 @@
         overflow-y: scroll;
         height: 300px;
     }
+    .alert-floating {
+        position: absolute;
+        top: 62px;
+        right: 20px;
+        z-index: 10000000;
+        width: 70%;
+        opacity: 0.9;
+    }
 </style>
 
 <div id="wrapper">
@@ -62,6 +70,7 @@
     ?>
 
     <div id="page-wrapper">
+        <?php displayUserDetailsUpdateStatus() ?>
         <!--Heading -->
         <div class="row">
             <div class="col-lg-12">
@@ -213,7 +222,7 @@
                                 <div class="modal fade" id="userPersonalDetails" tabindex="-1" role="dialog"
                                      aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <form role="form" action="index.php" method="post">
+                                        <form role="form" action="./content_helpers/update_user_details.php" method="post">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal"

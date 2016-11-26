@@ -2,11 +2,12 @@
 
 function getCountOfPlacedOrder()
 {
-    global $uid;
-    $sql_statement = "SELECT COUNT(*) as OrderCount FROM `orders` WHERE USERID = :uid";
-    $params = array(':uid' => $uid);
-    $orderCount = queryForSingleRow($sql_statement, $params);
-    echo $orderCount['OrderCount'];
+    global $user_order;
+    $count = count($user_order);
+    if (!isset($count)) {
+        $count = 0;
+    }
+    echo $count;
 }
 
 function getCountOfPendingOrder()
@@ -20,11 +21,12 @@ function getCountOfPendingOrder()
 
 function getItemCountInShoppingCart()
 {
-    global $aid;
-    $sql_statement = "SELECT COUNT(*) as 'ItemCount' FROM shoppingcart WHERE STATUS = 'ACTIVE' AND accountid = :aid";
-    $params = array(':aid' => $aid);
-    $itemCount = queryForSingleRow($sql_statement, $params);
-    echo $itemCount['ItemCount'];
+    global $shopping_cart_items;
+    $count = count($shopping_cart_items);
+    if (!isset($count)) {
+        $count = 0;
+    }
+    echo $count;
 }
 
 function createUserAddressBlock()
@@ -217,5 +219,27 @@ function createUserOrdersBlock()
                 </a>
             </div>
         </div>";
+    }
+}
+
+function displayUserDetailsUpdateStatus()
+{
+    if (isset($_REQUEST['update'])) {
+        $updateCount = (int) $_REQUEST['update'];
+        if($updateCount > 0) {
+           echo
+           "<div class=\"alert alert-success alert-dismissable alert-floating\">
+                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>
+                    User Details updated successfully.
+             </div>
+            ";
+        } else {
+            echo
+            "<div class=\"alert alert-danger alert-dismissable alert-floating\">
+                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>
+                    User Details not updated!!! Please try again.
+             </div>
+            ";
+        }
     }
 }

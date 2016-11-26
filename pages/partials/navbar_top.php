@@ -1,6 +1,12 @@
 <?php
-include("./content_helpers/navbar_top_content_helpers.php");
+include("$document_root/pages/content_helpers/navbar_top_content_helpers.php");
 ?>
+<style>
+    ul.dropdown-menu.dropdown-alerts.in {
+        overflow-y: scroll;
+        max-height: 600px;
+    }
+</style>
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -72,7 +78,7 @@ include("./content_helpers/navbar_top_content_helpers.php");
                     <a href="blank.php"><i class="fa fa-file-o fa-fw"></i>Blank Template</a>
                 </li>
                 <li>
-                    <a href="user_details.php"><i class="fa fa-file-o fa-fw"></i>User Details</a>
+                    <a href="user_details.php"><i class="fa fa-user fa-fw"></i>User Details</a>
                 </li>
             </ul>
         </div>
