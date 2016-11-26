@@ -131,15 +131,20 @@ function setUserAccountContext()
             $sql->execute(array(':uid' => $uid));
             $sql->setFetchMode(PDO::FETCH_CLASS, "user_account");
             $row = $sql->fetch();
-            if (isset($row)) {
+            if (isset($row) AND $row) {
                 $user = $row;
-                $aid = $row->getAccountId();
+                if ($row) {
+                    $aid = $row->getAccountId();
+                }
+                setUserAddressContext();
+                setUserPaymentContext();
+                setUserOrderHistoryContext();
+                setShoppingCartContext();
+                logErrorToConsole("Finally Setting UserAccountContext DONE !! ");
+            } else {
+                logErrorToConsole("Invalid User ID");
+                redirectToLoginPage();
             }
-            setUserAddressContext();
-            setUserPaymentContext();
-            setUserOrderHistoryContext();
-            setShoppingCartContext();
-            logErrorToConsole("Finally Setting UserAccountContext DONE !! ");
         }
     } catch (Exception $error) {
         logErrorToConsole("setUserAccountContext ERROR -- !!!" . var_export($error, true));
