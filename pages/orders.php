@@ -15,6 +15,11 @@
     ?>
 
     <?php
+    include("../utilities/applicationContext.php");
+    ?>
+
+
+    <?php
     sessionWrapper($db);
     $_SESSION["test"] = "test"; // This Value is Persisted in the Session on MYSQL Database
     logErrorToConsole(var_export($_SESSION, true)); // This is printed in the file on path /XAMPP/logs/php_error_log
@@ -33,7 +38,80 @@
 </head>
 
 <body>
+<script>
+    var addr_id ;
+    var pmt_id;    
 
+    function populateOrder(index) {
+        addr_id = document.getElementById('addrId'+index).innerHTML;      
+        var address = document.getElementById('addrId'+index).innerHTML + " ";
+        address+=document.getElementById('addrUnit'+index).innerHTML + " ";
+        address+=document.getElementById('addrStreet'+index ).innerHTML + " ";        
+        address+=document.getElementById('addrCity'+index ).innerHTML+ " ";
+        address+=document.getElementById('addrCountry'+index ).innerHTML+ " ";
+        address+=document.getElementById('addrZip'+index).innerHTML+ " ";
+        document.getElementById('finalOrderAddress').innerHTML = address;
+    }
+
+    function populatePayment(index) {
+        
+        var pmt = 1;
+        if(index===1) {
+            pmt = "Cash Payment";
+            pmt_id = 1;
+        } else if(index===2) {
+            pmt = "Reward Point Payment";
+            pmt_id = 2;
+        }
+        else {
+            pmt_id = document.getElementById('pmtId'+index).innerHTML;
+            pmt = document.getElementById('pmtId'+index).innerHTML + " ";
+            pmt+=document.getElementById('pmtType'+index).innerHTML + " ";
+            pmt+=document.getElementById('pmtFullName'+index ).innerHTML + " ";        
+            pmt+=document.getElementById('pmtCardNumber'+index ).innerHTML+ " ";
+            pmt+=document.getElementById('pmtPIN'+index ).innerHTML+ " ";
+            pmt+=document.getElementById('pmtExpDate'+index ).innerHTML+ " ";
+        }
+        document.getElementById('finalOrderPayment').innerHTML = pmt;
+    }
+
+    function placeOrder() {
+        
+        if(addr_id ==null || pmt_id==null) {
+            alert("Please select address and payment id");
+        } else {
+
+            var http = new XMLHttpRequest();
+            var url = "orderSubmission.php";
+            var params = "addrId="+ addr_id + "&pmtId=" + pmt_id;            
+            http.open("POST", url, true);
+
+            //Send the proper header information along with the request
+            http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            http.onreadystatechange = function() {//Call a function when the state changes.
+            if(http.readyState == 4 && http.status == 200) {
+                  //alert(http.responseText);                 
+                var json = http.responseText;               
+                var obj = JSON.parse(json);
+                console.log(obj);
+                console.log(obj.orderid);
+                console.log(obj['orderid']);
+                
+                var message = "Your order has been placed! You Order ID is : " +  obj['orderid'];
+                alert(message);
+
+
+                if (name != undefined && name != null) {
+                    window.location = '/Datafreaks/pages/orderConfirmation.php?orderid=' + obj['orderid'];
+                }
+            }
+                
+            }
+            http.send(params);
+        }
+    }
+</script>
 <style>
     .panelHeading {
         margin: 0;
@@ -46,7 +124,7 @@
 </style>
     <div id="wrapper">
         <!-- Navigation -->
-    <?php
+        <?php
             include ("./partials/navbar_top.php");
         ?>
     <!-- Page Content -->
@@ -60,14 +138,14 @@
                 </div>
                 <!-- row -->
                 <div class="row">
-                    <div class="col-lg-4 col-md-6">
+                    <div>
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h3 class="panelHeading">
-                                                <i class="fa fa-user fa-fw "></i>Order Details
+                                                <i class="fa fa-shopping-bag fa-fw "></i>Shopping Cart 
                                             </h3>
                                         </div>
                                         <!-- /.panel-heading -->
@@ -84,8 +162,13 @@
                                                 $value = "";
                                                 try {
                                                     $dbh = new PDO ( "mysql:host=$servername;dbname=$dbname", $username, $password );
-                                                    $sql_stmt = "SELECT cart.productid,p.name,p.price,cart.quantity,p.price*cart.quantity as total FROM product_shoppingcart cart,product p WHERE cart.cartid = 7773 AND cart.productid = p.id;";
-                                                    $sql_stmt_orderTotal = "SELECT sum(p.price*cart.quantity) as total FROM product_shoppingcart cart,product p WHERE cart.cartid = 7773 AND cart.productid = p.id;";
+                                                    
+                                                    $cartId = getActiveCartId();                                          
+
+
+                                                    $sql_stmt = "SELECT cart.productid,p.name,p.price,cart.quantity,p.price*cart.quantity as total FROM product_shoppingcart cart,product p WHERE cart.cartid = ". $cartId ." AND cart.productid = p.id;";
+
+                                                    $sql_stmt_orderTotal = "SELECT sum(p.price*cart.quantity) as total FROM product_shoppingcart cart,product p WHERE cart.cartid = " . $cartId ." AND cart.productid = p.id;";
                                                     } 
                                                 catch ( Exception $error ) {
                                                         echo '<p>', $error->getMessage (), '</p>';
@@ -119,10 +202,10 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="alert alert-info" role="alert">Order Total: 
+                                            <div class="alert alert-info" role="alert"><h3>Order Total: 
                                                 <?php
                                                     echo $row ['total'];
-                                                ?> 
+                                                ?>   <i class="fa fa-usd fa-fw "></i></h3>
                                             </div>
                                         </div>
                                         <!--panel body -->
@@ -166,9 +249,10 @@
                                     <div class="tab-pane fade in active" id="address">
                                         <h4>My Address</h4>
                                         <div class="panel-group" id="accordion">
-                                       
+                                  
                                           <?php
-                                                $sql_stmt_address = "SELECT address.id, address.unitnumber,address.streetname,address.city,address.state,address.country,address.zipcode from address, address_account WHERE address.id = address_account.addressid AND accountid = 7773; limit 1";
+                                                global $aid; 
+                                                $sql_stmt_address = "SELECT address.id, address.unitnumber,address.streetname,address.city,address.state,address.country,address.zipcode from address, address_account WHERE address.id = address_account.addressid AND accountid = ".$aid . "; limit 1";
                                                 $sql = $dbh->prepare ( $sql_stmt_address );
                                                 if ($sql->execute ()) {
                                                     $sql->setFetchMode ( PDO::FETCH_CLASS, "Address" );
@@ -188,9 +272,64 @@
                                      <div class="tab-pane fade " id="payment">
                                         <h4>My Payment</h4>
                                         <div class="panel-group" id="paymentAcc">
-                                       
+                                             <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#paymentAcc" href="#payment1">Payment
+                                                        Method #1</a>
+                                                </h4>
+                                            </div>
+                                            <div id="payment1" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                                                                <div class="form-group">
+                                                               
+                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                                         <h4>Pay by Cash</h4> 
+                                                                    <span class="input-group-btn">
+                                                                    <button class="btn btn-success" name="submit" onclick ="populatePayment(1)" type="button" id ="button1" value="val">Use this Payment Mode</button> 
+                                                                    </span>
+                                                                    </div>                                                      
+                                                                </div>
+                                                            </div>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#paymentAcc" href="#payment2">Payment
+                                                        Method #2</a>
+                                                </h4>
+                                            </div>
+                                            <div id="payment2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                                                                <div class="form-group">
+                                                                    <div class="col-lg-8 col-md-6 col-sm-6 col-xs-6">
+                                                                         <h4>Use Reward Points</h4> 
+                                                                    <span class="input-group-btn">
+                                                                    <button class="btn btn-success" name="submit" onclick ="populatePayment(2)" type="button" id ="button1" value="val">Use this Payment Mode</button> 
+                                                                    </span>
+                                                                    </div>    
+                                                                   
+                                                                </div>
+                                                            </div>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                             <?php
-                                                $sql_stmt_pmt = "SELECT type,fullname,cardnumber,pin_cvv,expdate from modeofpayment WHERE accountid = 7773;limit 1";
+                                                $sql_stmt_pmt = "SELECT id,type,fullname,cardnumber,pin_cvv,expdate from modeofpayment WHERE accountid = 7773;limit 1";
                                                 $sql = $dbh->prepare ( $sql_stmt_pmt );
                                                 if ($sql->execute ()) {
                                                     $sql->setFetchMode ( PDO::FETCH_CLASS, "Payment" );
@@ -198,7 +337,7 @@
                                             ?>
 
                                             <?php
-                                                $i=1;
+                                                $i=3;
                                                 while ( $pmt = $sql->fetch () ) {
                                                     paymentPrint( $pmt,$i++);
                                                 }
@@ -206,6 +345,8 @@
                                            
                                         </div>
                                     </div>
+
+                                   
 
                                 </div>
                             </div>
@@ -215,14 +356,45 @@
                     </div>
                 </div>
                 <!-- row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panelHeading">
+                                    <i class="fa fa-user fa-fw "></i>Final Order Details
+                                </h3>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="alert alert-success" role="alert"> 
+                                    <h4> <i class="fa  fa-home fa-fw "></i>
+                                     Address Selected: </h4>
+                                    <h4 id="finalOrderAddress"> </h4>                                    
+                                </div>
+
+                                <div class="alert alert-warning" role="alert"> 
+                                    <h4> <i class="fa  fa-dollar fa-fw "></i>
+                                     Payment Method Selected: </h4>
+                                    <h4 id="finalOrderPayment"> </h4>                                    
+                                </div>
+
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary  btn-lg " onclick = "placeOrder()">Place Order</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row -->
             </div>
         <!-- container fluid -->
         </div>
         <!-- Page Wrapper -->
    </div>
    <!-- Wrapper -->
-   <?php
+    <?php
         include ("./partials/footer_js.php");
-     ?>
+    ?>
 </body>
 </html>
