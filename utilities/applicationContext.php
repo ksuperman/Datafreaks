@@ -1,11 +1,11 @@
 <?php
 
-include_once("../objects/user_account.php");
-include_once("../objects/account_address.php");
-include_once("../objects/user_payment.php");
-include_once("../objects/user_order.php");
-include_once("../objects/user_shopping_cart.php");
-include_once("../objects/shopping_cart_items.php");
+include_once("$document_root/objects/user_account.php");
+include_once("$document_root/objects/account_address.php");
+include_once("$document_root/objects/user_payment.php");
+include_once("$document_root/objects/user_order.php");
+include_once("$document_root/objects/user_shopping_cart.php");
+include_once("$document_root/objects/shopping_cart_items.php");
 
 function setShoppingCartItemsContext()
 {
@@ -25,7 +25,6 @@ function setShoppingCartItemsContext()
 
         $shopping_cart_items = $sql->fetchAll(PDO::FETCH_CLASS, "shopping_cart_items");
     }
-
 }
 
 function setShoppingCartContext()
