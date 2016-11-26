@@ -1,0 +1,12 @@
+select product name and price from shopping cart:
+SELECT cart.productid,p.name,p.price,cart.quantity FROM product_shoppingcart cart,product p WHERE cart.cartid = 7773 AND cart.productid = p.id;
+
+SELECT cart.productid,p.name,p.price,cart.quantity,p.price*cart.quantity as total FROM product_shoppingcart cart,product p WHERE cart.cartid = 7773 AND cart.productid = p.id;
+
+SELECT sum(p.price*cart.quantity) as Total FROM product_shoppingcart cart,product p WHERE cart.cartid = 7773 AND cart.productid = p.id;
+
+SELECT address.id, address.unitnumber,address.streetname,address.city,address.state,address.country,address.zipcode from address, address_account WHERE address.id = address_account.addressid AND accountid = 7773;
+
+
+Fetch all the products from active cart:
+SELECT CART.PRODUCTID, CART.CARTID,CART.QUANTITY , PROD.PRICE FROM product_shoppingcart CART, product PROD WHERE CART.PRODUCTID = PROD.ID AND CART.CARTID = 7773;
