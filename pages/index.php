@@ -3,31 +3,40 @@
 
 <head>
     <?php
-        include("../utilities/dbConnect.php");
+    include("../utilities/global_variables.php");
     ?>
 
     <?php
-        include("../utilities/errorhandler.php");
+    include("$document_root/utilities/dbConnect.php");
     ?>
 
     <?php
-        include("../utilities/session.php");
+    include("$document_root/utilities/errorhandler.php");
+    set_error_handler('customErrorHandler');
     ?>
 
     <?php
-        sessionWrapper($db);
-        $_SESSION["test"] = "test"; // This Value is Persisted in the Session on MYSQL Database
-        logErrorToConsole(var_export($_SESSION, true)); // This is printed in the file on path /XAMPP/logs/php_error_log
+    include("$document_root/utilities/session.php");
     ?>
 
     <?php
-        include("./partials/header_meta.php");
+    include("$document_root/utilities/applicationContext.php");
     ?>
 
-    <title>Online Shopping Cart</title>
+    <?php
+    include('content_helpers/user_details_helper.php');
+    //logErrorToConsole("Get User Details".var_export($user->getUserId(), true));
+    //logErrorToConsole($_SERVER['DOCUMENT_ROOT'] . __DIR__);
+    ?>
 
     <?php
-        include("./partials/header_links.php");
+    include("$document_root/pages/partials/header_meta.php");
+    ?>
+
+    <title>User Details Page</title>
+
+    <?php
+    include("$document_root/pages/partials/header_links.php");
     ?>
 
 </head>

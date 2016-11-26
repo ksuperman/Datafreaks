@@ -14,7 +14,7 @@ function sessionWrapper($dbConnection)
 
     $session = new Zebra_Session($dbConnection, $securityCode);
 
-    $_SESSION['uid'] = 7773; // Remove this
+    $_SESSION['uid'] = 103324324; // Remove this
 
     if ((!checkForActiveSession()) && $_SERVER['PHP_SELF'] != "/datafreak/pages/index.php") {
         redirectToLoginPage();
