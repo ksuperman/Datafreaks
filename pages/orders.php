@@ -187,10 +187,8 @@
                                                 <tbody>
                                                 <tr>
                                                     <?php
-                                                    if(isset($orderSummary)){
-                                                        while ($orderSummary = $sql->fetch()) {
-                                                            createOrderSummary($orderSummary);
-                                                        }
+                                                    while ($orderSummary = $sql->fetch()) {
+                                                        createOrderSummary($orderSummary);
                                                     }
                                                     ?>
                                                 </tr>
@@ -199,8 +197,8 @@
                                         </div>
                                         <div class="alert alert-info" role="alert"><h3>Order Total:
                                                 <?php
-                                                echo $row ['total'];
-                                                ?> <i class="fa fa-usd fa-fw "></i></h3>
+                                                echo $row['total'];
+                                                ?><i class="fa fa-usd fa-fw "></i></h3>
                                         </div>
                                     </div>
                                     <!--panel body -->

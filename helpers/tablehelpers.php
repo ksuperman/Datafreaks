@@ -4,9 +4,7 @@
 		$sql_statement = "SELECT id FROM shoppingcart WHERE STATUS = 'ACTIVE' AND accountid = :aid";
 		$params = array(':aid' => $aid);
 		$cartId = queryForSingleRow($sql_statement, $params);
-        if (isset($cartId)){
-            return $cartId['id'];
-        }
+        return $cartId['id'];
 	}
 	function createOrderSummary(OrderSummary $order) {
         print "        <tr>\n";
