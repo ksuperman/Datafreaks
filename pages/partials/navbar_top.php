@@ -70,12 +70,14 @@ include("$document_root/pages/content_helpers/navbar_top_content_helpers.php");
             <ul class="nav" id="side-menu">
                 <li class="sidebar-search">
                     <div class="input-group custom-search-form">
-                        <input type="text" class="form-control" placeholder="Search For Products...">
+                        <form action="./search.php" name="yourForm" id="theForm" method="post">
+                        <input type="text" id="searchText" name="searchText" class="form-control"  placeholder="Search For Products...">
                         <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
+                            <button class="btn btn-default" type="submit">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>
+                        </form>
                     </div>
                     <!-- /input-group -->
                 </li>
