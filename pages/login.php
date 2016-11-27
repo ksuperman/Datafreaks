@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html >
 <head>
+    <?php
+    include("../utilities/global_variables.php");
+    ?>
+
+    <?php
+    include("$document_root/utilities/dbConnect.php");
+    ?>
     <meta charset="UTF-8">
     <title>Sign-Up/Login Form</title>
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/login.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/css/bootstrap.css">
+    <link rel="stylesheet" href="../dist/css/login.css">
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
     <script href="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/additional-methods.js" type="application/javascript"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="application/javascript"></script>
 
-    <script src="js/login.js" type="application/javascript"></script>
+    <script src="../dist/js/login.js" type="application/javascript"></script>
 </head>
 <body>
     <nav class="navbar navbar-default">

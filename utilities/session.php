@@ -2,9 +2,6 @@
 
 include 'Zebra_Session.php';
 
-$session;
-
-$securityCode = 'sEcUr1tY_c0dE';
 
 function sessionWrapper($dbConnection)
 {
