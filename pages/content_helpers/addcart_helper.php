@@ -15,10 +15,26 @@ include("$document_root/utilities/applicationContext.php");
 
 
 if (isset($_POST['action'])) {
-    echo '<br />The ' . $_POST['submit'] . ' submit button was pressed<br />';
-    $productId=$_POST['submit'];
-    global $uid;
-    addToCart($uid,$productId);
+    try {
+        echo '<br />The ' . $_POST['submit'] . ' submit button was pressed<br />';
+        $productId = $_POST['submit'];
+        global $uid;
+        addToCart($uid, $productId);
+    }
+    catch (Exception $error) {
+        logErrorToConsole("add_to_cart_details ERROR -- !!!" . var_export($error, true));
+        echo '<p>', $error->getMessage(), '</p>';
+    }finally{
+        redirectToCategoryPage();
+    }
+}
+
+function redirectToCategoryPage()
+{
+    $category = rawurldecode($_POST['category']);
+    //echo "<p> hello eh lo {$_POST['category']} </p>";
+    header("Location:../home.php?pageNumber=".$_POST['pageNumber']."&category=".$category."&total=".$_POST['total']);
+    exit();
 }
 
 function addToCart($uid,$productId){

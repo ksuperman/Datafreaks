@@ -81,20 +81,20 @@
     </div>
 </div>
 <!-- /#wrapper -->
-<!--<script type="application/javascript">
-    $(document).ready(function(){
-        $('button').click(function(){
-            $.ajax({
-                url: './home.php?function=addToCart',
-                type: "POST",
-                data: {pid: this.id, functionName: "addToCart"},
-                success: function(data) {
-                   alert("added to cart");
-                }
+    <!--<script type="application/javascript">
+        $(document).ready(function(){
+            $('button').click(function(){
+                $.ajax({
+                    url: './home.php?function=addToCart',
+                    type: "POST",
+                    data: {pid: this.id, functionName: "addToCart"},
+                    success: function(data) {
+                       alert("added to cart");
+                    }
+                });
             });
         });
-    });
-</script>-->
+    </script>-->
 <?php
 include("./partials/footer_js.php");
 ?>
