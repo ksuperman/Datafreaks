@@ -18,7 +18,7 @@ function getCountOfPendingOrder()
     global $uid;
     $count = 0;
     if(isset($uid)){
-        $sql_statement = "SELECT COUNT(*) as OrderCount FROM `orders` WHERE STATUS = 'SHIPPED' AND USERID = :uid";
+        $sql_statement = "SELECT COUNT(*) as OrderCount FROM `orders` WHERE STATUS = 'Pending' AND USERID = :uid";
         $params = array(':uid' => $uid);
         $orderCount = queryForSingleRow($sql_statement, $params);
         $count = $orderCount['OrderCount'];
@@ -228,7 +228,7 @@ function createUserOrdersBlock()
                 </div>
             </div>
             <div class=\"panel-footer\">
-                <a href='order_details.php'>
+                <a href='./orderConfirmation.php?orderid={$value->getORDERID()}'>
                     <button class=\"btn btn-info\">
                         View Order Details
                     </button>

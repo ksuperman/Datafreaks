@@ -1,9 +1,6 @@
 <?php 
     class Payment
     {
-
-        // ID    | TYPE       | FULLNAME  | CARDNUMBER | PIN_CVV | ADDRESSID | ACCOUNTID | EXPDATE 
-               
         private $id;
         private $type;
         private $fullname;

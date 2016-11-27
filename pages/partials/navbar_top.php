@@ -6,6 +6,14 @@ include("$document_root/pages/content_helpers/navbar_top_content_helpers.php");
         overflow-y: scroll;
         max-height: 600px;
     }
+    span.pull-right.text-muted.small {
+        position: absolute;
+        top: 19px;
+        right: -5px;
+    }
+    .productContainer{
+        position: relative;
+    }
 </style>
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
@@ -15,7 +23,7 @@ include("$document_root/pages/content_helpers/navbar_top_content_helpers.php");
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.php">Online Shopping Cart</a>
+        <a class="navbar-brand" href="home.php">Online Shopping Cart</a>
     </div>
     <!-- /.navbar-header -->
 
@@ -28,7 +36,7 @@ include("$document_root/pages/content_helpers/navbar_top_content_helpers.php");
             <ul class="dropdown-menu dropdown-alerts">
                 <?php getUserShoppingCartItems() ?>
                 <li>
-                    <a class="text-center" href="">
+                    <a class="text-center" href="orders.php">
                         <strong>Go To Checkout</strong>
                         <i class="fa fa-truck"></i>
                     </a>
@@ -47,7 +55,7 @@ include("$document_root/pages/content_helpers/navbar_top_content_helpers.php");
                 <li><a href="#"><i class="fa fa-gear fa-fw"></i> User Settings</a>
                 </li>
                 <li class="divider"></li>
-                <li><a href="../../../Downloads/startbootstrap-sb-admin-2-gh-pages/pages/login.html"><i
+                <li><a href="logout.php"><i
                             class="fa fa-sign-out fa-fw"></i> Logout</a>
                 </li>
             </ul>
@@ -72,10 +80,7 @@ include("$document_root/pages/content_helpers/navbar_top_content_helpers.php");
                     <!-- /input-group -->
                 </li>
                 <li>
-                    <a href="index.php"><i class="fa fa-dashboard fa-fw"></i>User</a>
-                </li>
-                <li>
-                    <a href="blank.php"><i class="fa fa-file-o fa-fw"></i>Blank Template</a>
+                    <a href="home.php"><i class="fa fa-dashboard fa-fw"></i>My Home</a>
                 </li>
                 <li>
                     <a href="user_details.php"><i class="fa fa-user fa-fw"></i>User Details</a>

@@ -8,10 +8,10 @@ function getUserShoppingCartItems()
             echo
             "<li>
             <a href=\"#\">
-                <div>
+                <div class='productContainer'>
                     <img style=\"height: 50px; width: 50px;\"
                          src=\"{$value->getIMG()}\">
-                    {$value->getNAME()}
+                    <div class='productName'>{$value->getNAME()}</div>
                     <span class=\"pull-right text-muted small\">Qty : {$value->getQUANTITY()}<br>Total : \${$value->getLineItemPrice()}</span>
                 </div>
             </a>

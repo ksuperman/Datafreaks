@@ -25,8 +25,6 @@
 
     <?php
     include('content_helpers/user_details_helper.php');
-    //logErrorToConsole("Get User Details".var_export($user->getUserId(), true));
-    //logErrorToConsole($_SERVER['DOCUMENT_ROOT'] . __DIR__);
     ?>
 
     <?php

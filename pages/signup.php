@@ -93,7 +93,7 @@
                     <hr></hr>
                     <div id="submit_button_container">
                         <input type="submit" class="btn btn-success" name="submit" value="Create Account"></input>
-                        <a href="login.php" class="btn btn-success">Existing User Login</a>
+                        <a href="index.php" class="btn btn-success">Existing User Login</a>
                     </div>
                 </form>
             </div>

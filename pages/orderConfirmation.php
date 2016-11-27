@@ -4,20 +4,24 @@
 <head>
 
     <?php
-        include("../utilities/dbConnect.php");
+    include "../utilities/global_variables.php"
     ?>
 
     <?php
-        include("../utilities/errorhandler.php");
+    include("../utilities/dbConnect.php");
     ?>
 
     <?php
-        include("../utilities/session.php");
+    include("../utilities/errorhandler.php");
+    set_error_handler('customErrorHandler');
     ?>
 
     <?php
-        sessionWrapper($db);
-        logErrorToConsole(var_export($_SESSION, true));
+    include("../utilities/session.php");
+    ?>
+
+    <?php
+    include("../utilities/applicationContext.php");
     ?>
 
     <?php
@@ -71,21 +75,15 @@
                                             <?php include '../utilities/Payment.php'; ?>
                                             <?php include 'content_helpers/order_confirmation_helper.php'; ?>
                                             <?php
-                                                $servername = "localhost";
-                                                $username = "datafreaks";
-                                                $password = "sesame";
-                                                $dbname = "datafreaks_prod";
                                                 $orderid = $_GET["orderid"];                                               
                                                 $value = "";
                                                 try {
-                                                    $dbh = new PDO ( "mysql:host=$servername;dbname=$dbname", $username, $password );
-                                                    $sql_stmt = "SELECT ol.productid,p.name,ol.unitprice as price, ol.quantity,ol.unitprice*ol.quantity as total FROM orderlineitems ol,product p WHERE ol.orderid = ".$orderid . " AND ol.productid = p.id;";
-                                                   // echo $sql_stmt;
+                                                    $dbh = getPDOObject();
 
+                                                    $sql_stmt = "SELECT ol.productid,p.name,ol.unitprice as price, ol.quantity,ol.unitprice*ol.quantity as total FROM orderlineitems ol,product p WHERE ol.orderid = ".$orderid . " AND ol.productid = p.id;";
 
                                                     $sql_stmt_orderTotal = "SELECT sum(ol.unitprice*ol.quantity) as total FROM orderlineitems ol WHERE ol.orderid = ". $orderid . ";";
-                                                    
-                                                   //  echo $sql_stmt_orderTotal;
+
                                                     } 
                                                 catch ( Exception $error ) {
                                                         echo '<p>', $error->getMessage (), '</p>';

@@ -62,7 +62,7 @@ $params_account = array(
     "addressid" => $insert_addressid
 );
 $data = $query_account->execute($params_account);
-$insert_accountid = $conn->lastInsertId();
+$insert_accountid = $db_pdo->lastInsertId();
 
 // prepare sql and bind parameters for table address_account
 $query_add_acc = $db_pdo->prepare("INSERT INTO ADDRESS_ACCOUNT (ACCOUNTID, ADDRESSID)
@@ -72,14 +72,14 @@ $params_add_acc = array(
     "addressid" => $insert_addressid
 );
 $data = $query_add_acc->execute($params_add_acc);
-$insert_add_acc = $conn->lastInsertId();
+$insert_add_acc = $db_pdo->lastInsertId();
 
 if ($insert_add_acc != null) {
     header("location: index.php?error=".urlencode("Account created successfully"));
 } else {
-    header("location: index.php?error=".urlencode($conn->error));
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    header("location: index.php?error=".urlencode($db_pdo->error));
+    echo "Error: " . $sql . "<br>" . $db_pdo->error;
 }
-$conn->close();
+$db_pdo->close();
 
 ?>
