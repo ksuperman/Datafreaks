@@ -31,9 +31,14 @@ if (isset($_POST['action'])) {
 
 function redirectToCategoryPage()
 {
-    $category = rawurldecode($_POST['category']);
-    //echo "<p> hello eh lo {$_POST['category']} </p>";
-    header("Location:../home.php?pageNumber=".$_POST['pageNumber']."&category=".$category."&total=".$_POST['total']);
+    if(isset($_POST['searchText'])){
+        header("Location:../search.php?pageNumber=".$_POST['searchText']);
+    }
+    else {
+        $category = rawurldecode($_POST['category']);
+        //echo "<p> hello eh lo {$_POST['category']} </p>";
+        header("Location:../home.php?pageNumber=" . $_POST['pageNumber'] . "&category=" . $category . "&total=" . $_POST['total']);
+    }
     exit();
 }
 
