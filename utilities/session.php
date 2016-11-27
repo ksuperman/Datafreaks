@@ -64,5 +64,15 @@ function setSessionAttribute($attributeName, $attributeValue)
     }
 }
 
+function logoutUserAndClearSession(){
+
+    global $session,$document_root;
+
+    session_unset();
+    $session->stop();
+    header("Location:../index.php");
+    exit();
+}
+
 // Setup Session On Include
 sessionWrapper($db);

@@ -126,7 +126,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Order Summary</h1>
+                    <h1 class="page-header">Order Checkout</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -158,19 +158,21 @@
                                             $sql_stmt = "SELECT cart.productid,p.name,p.price,cart.quantity,p.price*cart.quantity as total FROM product_shoppingcart cart,product p WHERE cart.cartid = " . $cartId . " AND cart.productid = p.id;";
 
                                             $sql_stmt_orderTotal = "SELECT sum(p.price*cart.quantity) as total FROM product_shoppingcart cart,product p WHERE cart.cartid = " . $cartId . " AND cart.productid = p.id;";
+
+                                            $sql = $dbh->prepare($sql_stmt);
+
+                                            $sql2 = $dbh->prepare($sql_stmt_orderTotal);
+
+                                            if ($sql->execute()) {
+                                                $sql->setFetchMode(PDO::FETCH_CLASS, "OrderSummary");
+                                            }
+                                            $sql2->execute();
+
+                                            $row = $sql2->fetch();
+
                                         } catch (Exception $error) {
                                             echo '<p>', $error->getMessage(), '</p>';
                                         }
-
-                                        $sql = $dbh->prepare($sql_stmt);
-
-                                        $sql2 = $dbh->prepare($sql_stmt_orderTotal);
-
-                                        if ($sql->execute()) {
-                                            $sql->setFetchMode(PDO::FETCH_CLASS, "OrderSummary");
-                                        }
-                                        $sql2->execute();
-                                        $row = $sql2->fetch();
                                         ?>
                                         <div class="table-responsive">
                                             <table id="mytable"
@@ -185,8 +187,10 @@
                                                 <tbody>
                                                 <tr>
                                                     <?php
-                                                    while ($orderSummary = $sql->fetch()) {
-                                                        createOrderSummary($orderSummary);
+                                                    if(isset($orderSummary)){
+                                                        while ($orderSummary = $sql->fetch()) {
+                                                            createOrderSummary($orderSummary);
+                                                        }
                                                     }
                                                     ?>
                                                 </tr>
