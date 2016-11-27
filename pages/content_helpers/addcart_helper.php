@@ -41,7 +41,6 @@ function addToCart($uid,$productId){
     $cartId = getActiveCartId();
     if(!isset($cartId)){
         $cartId = insertIntoShoppingCart();
-        echo "<p> this is newly insterted - $cartId</p>";
     }
     insertIntoProductShoppingCart($cartId,$productId);
 }
@@ -67,7 +66,6 @@ function insertIntoProductShoppingCart($cartId,$productId){
     );
     $data = $query_insert->execute($params_cartId);
     $insert_cartId = $db_pdo->lastInsertId();
-    echo "<p> this is newly inserted line item - $insert_cartId</p>";
 }
 
 function getActiveCartId(){
@@ -78,6 +76,5 @@ function getActiveCartId(){
     $sql->execute(array(':aid' => $aid));
     $row = $sql->fetch(PDO::FETCH_ASSOC);
     $cartId = $row["id"];
-    echo "<p> this is $cartId </p>";
     return $cartId;
 }

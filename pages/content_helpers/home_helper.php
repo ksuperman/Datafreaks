@@ -9,18 +9,15 @@
 include_once("../objects/catalogProduct.php");
 
 if (isset($_GET['pageNumber'])) {
-    echo "this is" . $_GET['pageNumber'];
-}else{
+} else {
     $pageNumber = 1;
 }
 
 if (isset($_GET['category'])) {
-    echo "this is" . $_GET['category'];
     $category = $_GET['category'];
 }
 
 if (isset($_GET['total'])) {
-    echo "this is" . $_GET['total'];
     $total = $_GET['total'];
 }
 
@@ -32,7 +29,7 @@ function getAllCategory()
     $checkFirst = true;
     foreach ($category_list as $key => $value) {
         $sanitizeCategory = str_replace(' ', '_', $value["Category"]);
-        if(!isset($_GET['category'])){
+        if (!isset($_GET['category'])) {
             if ($checkFirst) {
                 echo "<li class=\"active\"><a href=\"#$sanitizeCategory\" data-toggle=\"tab\">$sanitizeCategory</a>
               </li>";
@@ -41,13 +38,11 @@ function getAllCategory()
                 echo "<li><a href=\"#$sanitizeCategory\" data-toggle=\"tab\">$sanitizeCategory</a>
                 </li>";
             }
-        }
-        else{
-            if($_GET['category']==$value["Category"]){
+        } else {
+            if ($_GET['category'] == $value["Category"]) {
                 echo "<li class=\"active\"><a href=\"#$sanitizeCategory\" data-toggle=\"tab\">$sanitizeCategory</a>
               </li>";
-            }
-            else{
+            } else {
                 echo "<li><a href=\"#$sanitizeCategory\" data-toggle=\"tab\">$sanitizeCategory</a>
                 </li>";
             }
@@ -57,8 +52,7 @@ function getAllCategory()
     $checkFirst = true;
     foreach ($category_list as $key => $value) {
         $sanitizeCategory = str_replace(' ', '_', $value["Category"]);
-        if (!isset($_GET['category']))
-        {
+        if (!isset($_GET['category'])) {
             if ($checkFirst) {
                 echo "<div class=\"tab-pane fade in active\" id=$sanitizeCategory>
                         <h4>$sanitizeCategory</h4>";
@@ -71,17 +65,15 @@ function getAllCategory()
                 getProductsForCategory($value["Category"], 0, 8);
                 echo "</div>";
             }
-        }
-        else{
-            if($_GET['category'] == $value["Category"]){
+        } else {
+            if ($_GET['category'] == $value["Category"]) {
                 $pageNumber = $_GET['pageNumber'];
-                $start = $pageNumber*8-8;
+                $start = $pageNumber * 8 - 8;
                 echo "<div class=\"tab-pane fade in active\" id=$sanitizeCategory>
                         <h4>$sanitizeCategory</h4>";
                 getProductsForCategory($value["Category"], $start, 8);
                 echo "</div>";
-            }
-            else{
+            } else {
                 echo "<div class=\"tab-pane fade\" id=$sanitizeCategory>
                         <h4>$sanitizeCategory</h4>";
                 getProductsForCategory($value["Category"], 0, 8);
@@ -94,7 +86,7 @@ function getAllCategory()
 function getProductsForCategory($category, $start, $limit)
 {
     global $db_pdo;
-   // $limit1 = $pageNumber * $limit;
+    // $limit1 = $pageNumber * $limit;
     //$start = $limit1 - $limit;
     $sql_statement = "SELECT p.id as id, p.catalogid as catalogid, c.category as category, p.name as name, p.img as image, p.price as price ,p.description as description  FROM product p, catalog c WHERE p.catalogid = c.id AND c.category = :category limit :start,8;";
     if (isset($db_pdo)) {
@@ -110,17 +102,15 @@ function getProductsForCategory($category, $start, $limit)
     logErrorToConsole("Get Product List " . var_export($sql, true) . " ; " . var_export($product_list, true));
     if (sizeof($product_list) != 0) {
         foreach ($product_list as $key => $value) {
-            $encodedCat =   urlencode($value->getCategory());
-            if(isset($_GET['pageNumber'])){
+            $encodedCat = urlencode($value->getCategory());
+            if (isset($_GET['pageNumber'])) {
                 $pageNumber = $_GET['pageNumber'];
-            }
-            else{
+            } else {
                 $pageNumber = 1;
             }
-            if(isset($_GET['total'])){
+            if (isset($_GET['total'])) {
                 $total = $_GET['total'];
-            }
-            else{
+            } else {
                 $total = 1;
             }
             echo
@@ -158,11 +148,12 @@ function getProductsForCategory($category, $start, $limit)
     }
 }
 
-function getPagination($category){
+function getPagination($category)
+{
 
     $sql_statement = "SELECT p.id as id, p.catalogid as catalogid, c.category as category, p.name as name, p.img as image, p.price as price ,p.description as description  FROM product p, catalog c WHERE p.catalogid = c.id AND c.category = :category;";
 
-        $db_pdo = getPDOObject();
+    $db_pdo = getPDOObject();
 
     $sql = $db_pdo->prepare($sql_statement);
 
@@ -170,17 +161,20 @@ function getPagination($category){
     $sql->execute();
     $product_list = $sql->fetchAll(PDO::FETCH_CLASS, "catalogProduct");
     $total = count($product_list);
-    if($total>=8) {
+    if ($total >= 8) {
         logErrorToConsole("Get Product List " . var_export($sql, true) . " ; " . var_export($product_list, true));
         $numberOfPages = round($total / 8);
-        if($total/8>$numberOfPages){
-            $numberOfPages = $numberOfPages+1;
+        if ($total / 8 > $numberOfPages) {
+            $numberOfPages = $numberOfPages + 1;
         }
-        echo "<h1> $total - round($numberOfPages)</h1> <nav aria-label=\"...\">
-                <ul class=\"pagination\">
-                <li class=\"disabled\"><a href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>";
+        echo
+        "<ul class=\"pagination\">
+        <li class=\"disabled\"><a href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>
+        ";
+
         $first = true;
         $index = 1;
+
         while ($numberOfPages > 0) {
             if (!isset($_GET['category'])) {
                 if ($first) {
@@ -188,12 +182,10 @@ function getPagination($category){
                 } else {
                     echo "  <li><a href=\"home.php?pageNumber=$index&category=$category&total=$total\">$index</a></li>";
                 }
-            }
-            else{
-                if($_GET['pageNumber'] == $index){
+            } else {
+                if ($_GET['pageNumber'] == $index) {
                     echo "  <li class=\"active\"><a href=\"home.php?pageNumber=$index&category=$category&total=$total\">$index <span class=\"sr-only\">(current)</span></a></li>";
-                }
-                else{
+                } else {
                     echo "  <li><a href=\"home.php?pageNumber=$index&category=$category&total=$total\">$index</a></li>";
                 }
             }
