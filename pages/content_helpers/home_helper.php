@@ -111,6 +111,18 @@ function getProductsForCategory($category, $start, $limit)
     if (sizeof($product_list) != 0) {
         foreach ($product_list as $key => $value) {
             $encodedCat =   urlencode($value->getCategory());
+            if(isset($_GET['pageNumber'])){
+                $pageNumber = $_GET['pageNumber'];
+            }
+            else{
+                $pageNumber = 1;
+            }
+            if(isset($_GET['total'])){
+                $total = $_GET['total'];
+            }
+            else{
+                $total = 1;
+            }
             echo
             "<div class=\"col-sm-3\">
             <article class=\"col-item\">
@@ -118,9 +130,9 @@ function getProductsForCategory($category, $start, $limit)
                     <div class=\"options-cart-round\">
                     <form action=\"./content_helpers/addcart_helper.php\" name=\"yourForm\" id=\"theForm\" method=\"post\">
                       <input type=\"hidden\" name=\"action\" value=\"submit\" />
-                      <input type=\"hidden\" name=\"pageNumber\" value={$_GET['pageNumber']} />
+                      <input type=\"hidden\" name=\"pageNumber\" value={$pageNumber} />
                       <input type=\"hidden\" name=\"category\" value=$encodedCat />
-                      <input type=\"hidden\" name=\"total\" value={$_GET['total']} />
+                      <input type=\"hidden\" name=\"total\" value={$total} />
                         <button type=\"submit\" name=\"submit\" value={$value->getId()} class=\"btn btn-default\" id=\"{$value->getId()}\" title=\"Add to cart\">
                             <span class=\"fa fa-shopping-cart\"></span>
                         </button>
