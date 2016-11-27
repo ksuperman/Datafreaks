@@ -3,7 +3,7 @@
 define('DB_SERVER', 'localhost:3306');
 define('DB_USERNAME', 'datafreaks');
 define('DB_PASSWORD', 'sesame');
-define('DB_DATABASE', 'datafreaks');
+define('DB_DATABASE', 'datafreaks_prod');
 
 global $db_pdo, $db;
 
