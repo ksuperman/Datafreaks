@@ -1,27 +1,19 @@
 <?php
-$servername = "localhost";
-$username = "datafreaks";
-$password = "sesame";
-$dbname = "DATAFREAKS";
 
-// Create connection
-$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-// set the PDO error mode to exception
-$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+include "../utilities/global_variables.php";
+include("$document_root/utilities/dbConnect.php");
+include("$document_root/utilities/errorhandler.php");
+set_error_handler('customErrorHandler');
+include("$document_root/utilities/session.php");
+include("$document_root/utilities/applicationContext.php");
 
+global $db_pdo;
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
       // username and password sent from form
       $username = filter_input(INPUT_POST,"username");
       $password = filter_input(INPUT_POST,"password");
-
-   // prepare sql and bind parameters for table account
-//    $query_account = $conn->prepare("SELECT ID FROM ACCOUNT WHERE PASSWORD = :password AND USERID = (SELECT USERID FROM USER WHERE USERNAME = :username)");
-//   $params_account = array(
-//       "password" => $hashedPassword,
-//       "username" => $username
-//   );
-    $query_account = $conn->prepare("SELECT * FROM ACCOUNT WHERE USERID = (SELECT ID FROM USER WHERE USERNAME = :username)");
+    $query_account = $db_pdo->prepare("SELECT * FROM ACCOUNT WHERE USERID = (SELECT ID FROM USER WHERE USERNAME = :username)");
     $params_account = array(
        "username" => $username
     );
@@ -38,10 +30,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     {
         header("location: login.php?error=Your Login Name or Password is invalid");
       }else {
+        sessionWrapper($db_pdo,$_POST['userid']);
         header("location: welcome.php?username=".urlencode($_POST['username']));
       }
    }
-   $conn = null;
+
+function sessionWrapper($dbConnection,$userid)
+{
+    global $securityCode;
+
+    global $session;
+
+    $session = new Zebra_Session($dbConnection, $securityCode);
+
+    $_SESSION['uid'] = $userid;
+
+}
+
 ?>
 
 

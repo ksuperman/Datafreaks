@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Sign-Up/Login Form</title>
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="../dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../dist/css/signup.css">
 
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
@@ -13,7 +13,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="application/javascript"></script>
 
 
-    <script src="js/signup.js" type="application/javascript"></script>
+    <script src="../dist/js/signup.js" type="application/javascript"></script>
 </head>
 <body>
     <nav class="navbar navbar-default">
