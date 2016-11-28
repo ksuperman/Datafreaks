@@ -445,3 +445,7 @@ table.dataTable thead .sorting:after {
     border-left-width: 0;
   }
 }
+img.img-responsive.image-size-fixed {
+  height: 126px;
+  width: 100%;
+}

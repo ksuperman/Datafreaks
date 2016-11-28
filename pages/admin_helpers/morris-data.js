@@ -40,8 +40,8 @@ Morris.Area({
         element: 'morris-area-chart',
         data: jsonArrayArea,
         xkey: 'year',
-        ykeys: ['smartwatch', 'smartphone', 'headphones'],
-        labels: ['smartwatch', 'smartphone', 'headphones'],
+        ykeys: ['BakedGoods', 'Lenovo ThinkPad', 'THE UNDERGROUND'],
+        labels: ['BakedGoods', 'Lenovo ThinkPad', 'THE UNDERGROUND'],
         pointSize: 2,
         hideHover: 'auto',
         resize: true

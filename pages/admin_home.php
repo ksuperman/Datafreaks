@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html >
 <head>
     <meta charset="UTF-8">
@@ -33,6 +34,15 @@
 </head>
 <body>
 
+    <style>
+        a{
+            text-decoration: underline;
+        }
+        a:visited{
+            color: #0502a2;
+        }
+    </style>
+
 	<div class="well well-lg" style="background-color:black";>
 	<font color="white"><h4><b><center>Online Shopping Portal - Admin Dashboard</center></b></h4></font>
 	<font color="white"><h6><center>Project by Team Datafreaks</center></h6></font>
@@ -61,7 +71,7 @@
 				<div class="panel-heading">Sales in all Product Categories</div>
                 <div class="panel-body">
 				<?php
-				$query = "SELECT SUM(ST.TRANSACTIONAMOUNT) AS TOTAL_SALES, CP.CATEGORY AS CATEGORY FROM CATALOGPRODUCT CP, SALESTRANACTION ST WHERE ST.CATALOGPRODUCTID = CP.CATALOGPRODUCTID GROUP BY CP.CATEGORY";
+				$query = "SELECT TOTAL_SALES, CATEGORY FROM sales_in_all_product_categories";
 				$result = $conn->query($query);
 				$jsonArrayBar = array();
 				if ($result->num_rows > 0) 
@@ -87,11 +97,11 @@
 				<div class="panel panel-primary">
 				<div class="panel-heading">Sales with different Modes of Payment</div>
 				<div class="panel-body">
-				<?php
-				$query = "SELECT SUM(ST.TRANSACTIONAMOUNT) AS TOTAL_SALES, MOP.PAYMENTMODETYPE AS MODE_OF_PAYMENT FROM MODEOFPAYMENT MOP, SALESTRANACTION ST WHERE ST.PAYMENTID = MOP.PAYMENTID GROUP BY MOP.PAYMENTMODETYPE";
+                <?php
+				$query = "SELECT TOTAL_SALES, MODE_OF_PAYMENT FROM sales_in_all_modeofpayment";
 				$result = $conn->query($query);
 				$jsonArrayDonut = array();
-				if ($result->num_rows > 0) 
+				if ($result->num_rows > 0)
 				{
 						  //Converting the results into an associative array
 						  while($row = $result->fetch_assoc()) {
@@ -123,10 +133,10 @@
 				<div class="panel-heading">Loss In sales with abandoned carts</div>
 				<div class="panel-body">
 				<?php
-				$query = "SELECT SUM(USC.CARTITEMAMOUNT) AS TOTAL_LOSS, CP.CATEGORY AS CATEGORY FROM CATALOGPRODUCT CP, USERSHOPPINGCART USC, SHOPPINGCART SC WHERE USC.CATALOGPRODUCTID = CP.CATALOGPRODUCTID AND USC.SHOPPINGCARTID = USC.SHOPPINGCARTID AND SC.SHOPPINGCARTSTATUS='ABANDONED' GROUP BY CP.CATEGORY";
+				$query = "SELECT TOTAL_LOSS, CATEGORY FROM loss_in_sales";
 				$result = $conn->query($query);
 				$jsonArrayBar2 = array();
-				if ($result->num_rows > 0) 
+				if ($result->num_rows > 0)
 				{
 						  //Converting the results into an associative array
 						  while($row = $result->fetch_assoc()) {
@@ -150,7 +160,7 @@
 				<div class="panel-heading">Sales Trend of 3 most popular products</div>
 				<div class="panel-body">
 				<?php
-				$query = "SELECT SUM(ST.TRANSACTIONAMOUNT) AS TOTAL_AMOUNT, CP.NAME AS PRODUCT, OD.YEAR AS YEAR FROM SALESTRANACTION ST, CATALOGPRODUCT CP, ORDERDATE OD WHERE OD.ORDERDATEID = ST.ORDERDATEID AND ST.CATALOGPRODUCTID = CP.CATALOGPRODUCTID AND OD.YEAR IN (2015,2016) AND CP.NAME IN ('smartwatch','smartphone','headphones') GROUP BY CP.NAME, OD.YEAR ORDER BY YEAR,PRODUCT";
+				$query = "SELECT TOTAL_AMOUNT, PRODUCT,YEAR FROM sales_trend_in_years";
 				$result = $conn->query($query);
 				$jsonArrayArea = array();
 				if ($result->num_rows > 0) 
@@ -159,12 +169,12 @@
 						  $count = 0;
 						  while($row = $result->fetch_assoc()) {	
 							$jsonArrayItem['year'] = $row['YEAR'];		
-							if($row['PRODUCT']=='smartphone')
-								$jsonArrayItem['smartphone'] = $row['TOTAL_AMOUNT'];
-							else if($row['PRODUCT']=='smartwatch')
-								$jsonArrayItem['smartwatch'] = $row['TOTAL_AMOUNT'];
-							else if($row['PRODUCT']=='headphones')
-								$jsonArrayItem['headphones'] = $row['TOTAL_AMOUNT'];
+							if($row['PRODUCT']=='BakedGoods')
+								$jsonArrayItem['BakedGoods'] = $row['TOTAL_AMOUNT'];
+							else if($row['PRODUCT']=='Lenovo ThinkPad')
+								$jsonArrayItem['Lenovo ThinkPad'] = $row['TOTAL_AMOUNT'];
+							else if($row['PRODUCT']=='THE UNDERGROUND')
+								$jsonArrayItem['THE UNDERGROUND'] = $row['TOTAL_AMOUNT'];
 							$count = $count+1;
 							if($count == 3)
 							{	
@@ -413,10 +423,10 @@
 				</div>
 				<div class="col-md-10">
 				<div class="panel panel-primary">
-				<div class="panel-heading">All Orders placed within Country Canada State British Columbia City Vancouver Street Karstens Zip code 907</div>
+				<div class="panel-heading">All Orders placed within Country United States State California City Princeton Street Jackson Street Zip code 95970</div>
                 <div class="panel-body">
 				 <?php
-				$query = "SELECT O.ORDERADDRESSCOUNTRY AS 'Country',O.ORDERADDRESSPINCODE AS 'Postal_Zip_Code',O.ORDERADDRESSSTATE AS 'State',O.ORDERADDRESSCITY AS 'City',O.ORDERADDRESSSTREET AS 'Street_Address',Sum(ST.TRANSACTIONAMOUNT) AS 'Total_Sales_Amount',Sum(ST.TRANSACTIONQUANTITY) AS 'Total_Items_Sold' FROM SALESTRANACTION ST,ORDERDATE OD, ORDERS O WHERE ST.ORDERDATEID = OD.ORDERDATEID AND ST.ORDERID = O.ORDERID AND O.ORDERADDRESSSTREET = 'Karstens' AND O.ORDERADDRESSCITY = 'Vancouver' AND O.ORDERADDRESSSTATE = 'British Columbia' AND O.ORDERADDRESSPINCODE = 907 AND O.ORDERADDRESSCOUNTRY = 'Canada'  GROUP BY O.ORDERADDRESSCOUNTRY, O.ORDERADDRESSPINCODE, O.ORDERADDRESSSTATE, O.ORDERADDRESSCITY, O.ORDERADDRESSSTREET";
+                    $query = "SELECT O.ORDERADDRESSCOUNTRY AS 'Country',O.ORDERADDRESSPINCODE AS 'Postal_Zip_Code',O.ORDERADDRESSSTATE AS 'State',O.ORDERADDRESSCITY AS 'City',O.ORDERADDRESSSTREET AS 'Street_Address',Sum(ST.TRANSACTIONAMOUNT) AS 'Total_Sales_Amount',Sum(ST.TRANSACTIONQUANTITY) AS 'Total_Items_Sold' FROM SALESTRANACTION ST,ORDERDATE OD, ORDERS O WHERE ST.ORDERDATEID = OD.ORDERDATEID AND ST.ORDERID = O.ORDERID AND O.ORDERADDRESSSTREET = 'Jackson Street' AND O.ORDERADDRESSCITY = 'PRINCETON' AND O.ORDERADDRESSSTATE = 'California' AND O.ORDERADDRESSPINCODE = 95970 AND O.ORDERADDRESSCOUNTRY = 'United States'  GROUP BY O.ORDERADDRESSCOUNTRY, O.ORDERADDRESSPINCODE, O.ORDERADDRESSSTATE, O.ORDERADDRESSCITY, O.ORDERADDRESSSTREET";
 				$result = $conn->query($query);
 				$jsonArrayTable = array();
 				if($result) 

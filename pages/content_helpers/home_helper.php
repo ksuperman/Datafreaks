@@ -128,7 +128,7 @@ function getProductsForCategory($category, $start, $limit)
                         </button>
                         </form>
                     </div>
-                    <a href=\"#\"> <img src={$value->getImage()} class=\"img-responsive\" alt=\"Product Image\" /> </a>
+                    <a href=\"#\"> <img src={$value->getImage()} class=\"img-responsive image-size-fixed\" alt=\"Product Image\" /> </a>
                 </div>
                 <div class=\"info\">
                     <div class=\"row\">
