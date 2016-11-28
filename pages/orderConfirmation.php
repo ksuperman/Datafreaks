@@ -50,7 +50,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Order Confirmation</h1>
+                        <h1 class="page-header">My Order Details</h1>
 
                     </div>
                     <!-- /.col-lg-12 -->
@@ -122,10 +122,10 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="alert alert-info" role="alert"><h3>Order Total: 
-                                                <?php
+                                            <div class="alert alert-info" role="alert"><h3>Order Total:
+                                                    <i class="fa fa-usd fa-fw "></i><?php
                                                     echo $row ['total'];
-                                                ?>   <i class="fa fa-usd fa-fw "></i></h3>
+                                                ?></h3>
                                             </div>
                                         </div>
                                         <!--panel body -->
