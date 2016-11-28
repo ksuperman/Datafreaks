@@ -58,6 +58,9 @@
         width: 70%;
         opacity: 0.9;
     }
+    .addAddressButton {
+        padding: 17px;
+    }
 </style>
 
 <div id="wrapper">

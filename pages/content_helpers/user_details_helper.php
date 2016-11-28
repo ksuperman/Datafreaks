@@ -103,6 +103,70 @@ function createUserAddressBlock()
                 </div>
             </div>";
         }
+        echo "
+        <div class='addAddressButton'>
+            <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#addNewAddress\">
+                Add New Address
+            </button>
+        </div>
+        <!-- Modal -->
+        <div class=\"modal fade\" id=\"addNewAddress\" tabindex=\"-1\" role=\"dialog\"
+             aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">
+            <div class=\"modal-dialog\">
+                <form role=\"form\" action=\"./content_helpers/add_new_address.php\" method=\"post\">
+                    <div class=\"modal-content\">
+                        <div class=\"modal-header\">
+                            <button type=\"button\" class=\"close\" data-dismiss=\"modal\"
+                                    aria-hidden=\"true\">&times;</button>
+                            <h4 class=\"modal-title\" id=\"myModalLabel\">Add New Address</h4>
+                        </div>
+                        <div class=\"modal-body\">
+                            <fieldset>
+                                <div class=\"form-group input-group\">
+                                    <input type=\"text\" class=\"form-control\"
+                                           placeholder=\"Unit Number\" name=\"unitnumber\">
+                                    <span class=\"input-group-addon\">Unit Number</span>
+                                </div>
+                                <div class=\"form-group input-group\">
+                                    <input type=\"text\" class=\"form-control\"
+                                           placeholder=\"Street Name\" name=\"streetname\">
+                                    <span class=\"input-group-addon\">Street Name</span>
+                                </div>
+                                <div class=\"form-group input-group\">
+                                    <input type=\"text\" class=\"form-control\"
+                                           placeholder=\"City\" name=\"city\">
+                                    <span class=\"input-group-addon\">City</span>
+                                </div>
+                                <div class=\"form-group input-group\">
+                                    <input type=\"text\" class=\"form-control\"
+                                           placeholder=\"County\" name=\"county\">
+                                    <span class=\"input-group-addon\">County</span>
+                                </div>
+                                <div class=\"form-group input-group\">
+                                    <input type=\"text\" class=\"form-control\"
+                                           placeholder=\"state\" name=\"state\">
+                                    <span class=\"input-group-addon\">State</span>
+                                </div>
+                                <div class=\"form-group input-group\">
+                                    <input type=\"text\" class=\"form-control\"
+                                           placeholder=\"Zipcode\" name=\"zipcode\">
+                                    <span class=\"input-group-addon\">Zipcode</span>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class=\"modal-footer\">
+                            <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">
+                                Close
+                            </button>
+                            <button type=\"submit\" class=\"btn btn-primary\">Update Changes
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </form>
+            </div>
+            <!-- /.modal-dialog -->
+        </div>";
     }
 }
 
@@ -158,6 +222,67 @@ function createUserPaymentBlock()
             </div>
         </div>";
         }
+        echo "
+        <div class='addAddressButton'>
+            <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#addNewPayment\">
+                Add New Payment
+            </button>
+        </div>
+        <!-- Modal -->
+        <div class=\"modal fade\" id=\"addNewPayment\" tabindex=\"-1\" role=\"dialog\"
+             aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">
+            <div class=\"modal-dialog\">
+                <form role=\"form\" action=\"./content_helpers/add_new_payment.php\" method=\"post\">
+                    <div class=\"modal-content\">
+                        <div class=\"modal-header\">
+                            <button type=\"button\" class=\"close\" data-dismiss=\"modal\"
+                                    aria-hidden=\"true\">&times;</button>
+                            <h4 class=\"modal-title\" id=\"myModalLabel\">Add New Payment</h4>
+                        </div>
+                        <div class=\"modal-body\">
+                            <fieldset>
+                                <div class=\"form-group\">
+                                    <label>Card Type</label>
+                                    <select class=\"form-control\" name='type'>
+                                        <option>Credit Card</option>
+                                        <option>Debit Card</option>
+                                    </select>
+                                </div>
+                                <div class=\"form-group input-group\">
+                                    <input type=\"text\" class=\"form-control\"
+                                           placeholder=\"Full Name\" name=\"FULLNAME\">
+                                    <span class=\"input-group-addon\">Street Name</span>
+                                </div>
+                                <div class=\"form-group input-group\">
+                                    <input type=\"text\" class=\"form-control\"
+                                           placeholder=\"Card Number\" name=\"CARDNUMBER\">
+                                    <span class=\"input-group-addon\">CARDNUMBER</span>
+                                </div>
+                                <div class=\"form-group input-group\">
+                                    <input type=\"text\" class=\"form-control\"
+                                           placeholder=\"PIN/CVV\" name=\"PIN_CVV\">
+                                    <span class=\"input-group-addon\">PIN/CVV</span>
+                                </div>
+                                <div class=\"form-group input-group\">
+                                    <input type=\"date\" class=\"form-control\"
+                                           placeholder=\"Expiry Date\" name=\"EXPDATE\">
+                                    <span class=\"input-group-addon\">Expiry Date</span>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class=\"modal-footer\">
+                            <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">
+                                Close
+                            </button>
+                            <button type=\"submit\" class=\"btn btn-primary\">Update Changes
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </form>
+            </div>
+            <!-- /.modal-dialog -->
+        </div>";
     }
 }
 

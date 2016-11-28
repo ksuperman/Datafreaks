@@ -16,7 +16,7 @@ function morrisDonut(jsonArrayDonut){
         element: 'morris-donut-chart',
         data: jsonArrayDonut,
         resize: true,
-		colors: ['#f4f142'],
+		colors: ['#f4f142',"blue","red","green"],
     });
     
 };
@@ -43,6 +43,7 @@ Morris.Area({
         ykeys: ['BakedGoods', 'Lenovo ThinkPad', 'THE UNDERGROUND'],
         labels: ['BakedGoods', 'Lenovo ThinkPad', 'THE UNDERGROUND'],
         pointSize: 2,
+    lineColors: ["crimson","#ff8566","green"],
         hideHover: 'auto',
         resize: true
     });
