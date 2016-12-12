@@ -476,7 +476,7 @@
 				function displayCityTable(result)
 					{
 						var object = JSON.parse(result);
-						var tableElement = "<div class='row'><div class='col-md-1'></div><div class='col-md-10'><div class='panel panel-primary'><div class='panel-heading'>All orders placed within a city-Rolled up on City</div><div class='panel-body'><table width='100%' class='table table-striped table-bordered table-hover'><thead><tr><th>Country</th><th>State</th><th>City</th><th>Street Address</th><th>Total Sales Amount</th><th>Total Items Sold</th></tr></thead><tbody>";
+						var tableElement = "<div class='row'><div class='col-md-1'></div><div class='col-md-10'><div class='panel panel-primary'><div class='panel-heading'>All orders placed within a city-Rolled up on Street</div><div class='panel-body'><table width='100%' class='table table-striped table-bordered table-hover'><thead><tr><th>Country</th><th>State</th><th>City</th><th>Street Address</th><th>Total Sales Amount</th><th>Total Items Sold</th></tr></thead><tbody>";
 						for(var i=0;i<object.length;i++)
 						{
 								tableElement+="<tr><td>";
@@ -519,7 +519,7 @@
 					function displayStateTable(result)
 					{
 						var object = JSON.parse(result);
-						var tableElement = "<div class='row'><div class='col-md-1'></div><div class='col-md-10'><div class='panel panel-primary'><div class='panel-heading'>All orders placed within a state - Rolled up on State</div><div class='panel-body'><table width='100%' class='table table-striped table-bordered table-hover'><thead><tr><th>Country</th><th>State</th><th>City</th><th>Total Sales Amount</th><th>Total Items Sold</th></tr></thead><tbody>";
+						var tableElement = "<div class='row'><div class='col-md-1'></div><div class='col-md-10'><div class='panel panel-primary'><div class='panel-heading'>All orders placed within a state - Rolled up on City</div><div class='panel-body'><table width='100%' class='table table-striped table-bordered table-hover'><thead><tr><th>Country</th><th>State</th><th>City</th><th>Total Sales Amount</th><th>Total Items Sold</th></tr></thead><tbody>";
 						for(var i=0;i<object.length;i++)
 						{
 								tableElement+="<tr><td>";
@@ -559,7 +559,7 @@
 					function displayCountryTable(result)
 					{
 						var object = JSON.parse(result);
-						var tableElement = "<div class='row'><div class='col-md-1'></div><div class='col-md-10'><div class='panel panel-primary'><div class='panel-heading'>All orders placed within a Country-Rollec up on Country</div><div class='panel-body'><table width='100%' class='table table-striped table-bordered table-hover'><thead><tr><th>Country</th><th>State</th><th>Total Sales Amount</th><th>Total Items Sold</th></tr></thead><tbody>";
+						var tableElement = "<div class='row'><div class='col-md-1'></div><div class='col-md-10'><div class='panel panel-primary'><div class='panel-heading'>All orders placed within a Country-Rolled up on State</div><div class='panel-body'><table width='100%' class='table table-striped table-bordered table-hover'><thead><tr><th>Country</th><th>State</th><th>Total Sales Amount</th><th>Total Items Sold</th></tr></thead><tbody>";
 						for(var i=0;i<object.length;i++) 
 						{
 								tableElement+="<tr><td><a href='#' onclick='rollOnWorld()'>";
@@ -595,7 +595,7 @@
 					function displayWorldTable(result)
 					{
 						var object = JSON.parse(result);
-						var tableElement = "<div class='row'><div class='col-md-1'></div><div class='col-md-10'><div class='panel panel-primary'><div class='panel-heading'>All Orders placed world wide-Rolled by on World</div><div class='panel-body'><table width='100%' class='table table-striped table-bordered table-hover'><thead><tr><th>Country</th><th>Total Sales Amount</th><th>Total Items Sold</th></tr></thead><tbody>";
+						var tableElement = "<div class='row'><div class='col-md-1'></div><div class='col-md-10'><div class='panel panel-primary'><div class='panel-heading'>All Orders placed world wide-Rolled up on Country</div><div class='panel-body'><table width='100%' class='table table-striped table-bordered table-hover'><thead><tr><th>Country</th><th>Total Sales Amount</th><th>Total Items Sold</th></tr></thead><tbody>";
 						for(var i=0;i<object.length;i++) 
 						{
 								tableElement+="<tr><td>";

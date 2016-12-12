@@ -72,7 +72,7 @@
         <!--Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">User Details</h1>
+                <h1 class="page-header">Order Details</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
